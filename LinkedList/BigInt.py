@@ -7,7 +7,7 @@ class Digit(LNode):
 
 class BigInt(LList):
     """
-    每个节点的数字必须为0-9之间的数字
+    The element in every node should be an integer between 0 and 9 (inclusive). 
     """
     @staticmethod
     def digit_add(m = 0, n = 0, last_digit = 0):
