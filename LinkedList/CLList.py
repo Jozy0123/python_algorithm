@@ -1,4 +1,4 @@
-from linkedlist import LNode
+from llist import LNode
 
 class LCList:
 
