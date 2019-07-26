@@ -53,6 +53,23 @@ def replace_(origin_string, pattern_string, target_string):
     result_string = origin_string[:position_to_be_replaced-1] + target_string + origin_string[moving_starting_pos:]
     return result_string
 
+def tokens(string, seps):
+    print("***********************************")
+    final = string
+    while len(final) > len(seps):
+        position_to_be_replaced = matching_KMP(final, seps)
+        if position_to_be_replaced > 0:
+            yield final[0: position_to_be_replaced]
+            final = final[position_to_be_replaced + len(seps):]
+        elif position_to_be_replaced == 0:
+            final = final[position_to_be_replaced + len(seps):]
+        else:
+            yield final
+            break
+
 if __name__ == '__main__':
 
     print(replace_("abcdef", "cd", 'ace'))
+    for i in tokens("abdaddre", "da"):
+        print(i)
+   
