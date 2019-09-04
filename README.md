@@ -1,5 +1,5 @@
 # python_algorithm
 
-# Python algorithm practices repo:
+# Python algorithm practices repo
 
-## link to my personal github page and understand github practices better
+A repo for personal practice of python data structure and algorithms
