@@ -62,14 +62,3 @@ class DLList(DoubleList):
             self._rear = self._rear.prev_node
             self._rear.next = None
             return elem
-
-
-
-
-
-
-
-
-
-
-
