@@ -74,7 +74,7 @@ class BinTreeList(BinTreeABC):
 
 if __name__ == "__main__":
     t1 = BinTreeList(2, BinTreeList(4), None)
-    t2 = BinTreeList(8, BinTreeList(6), BinTreeList(20))
+    t2 = BinTreeList(8, None, None)
     t3 = BinTreeList(5, t1, t2)
     print(t3)
     t3.traversal()
