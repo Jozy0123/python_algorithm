@@ -1,5 +1,6 @@
 from LinkedList import LNode
 
+
 class LCList:
 
     def __init__(self):

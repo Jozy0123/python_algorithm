@@ -1,4 +1,4 @@
-from stack import SStack, LStack
+from StackAndQueue import SStack, LStack
 
 def knap_nonrec(weight, wlist, n):
 

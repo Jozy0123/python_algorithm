@@ -1,4 +1,4 @@
-from stack import SStack
+from StackAndQueue import SStack
 
 class occupied(ValueError):
     pass
