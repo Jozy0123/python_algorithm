@@ -1,5 +1,3 @@
-import traversal as traversal
-
 from treeABC import BinTreeABC
 
 
