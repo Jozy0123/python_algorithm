@@ -40,8 +40,3 @@ if __name__ == "__main__":
     print(queue._elems)
     print(queue.dequeue())
     print(queue._elems)
-
-
-
-
-
