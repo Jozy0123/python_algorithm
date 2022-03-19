@@ -10,7 +10,7 @@ class DLNode(LNode):
                  prev_node=None,
                  next_node=None):
         LNode.__init__(self, elem, next_node)
-        self.prev_node = prev_nodev
+        self.prev_node = prev_node
 
 
 class DLList(DoubleList):

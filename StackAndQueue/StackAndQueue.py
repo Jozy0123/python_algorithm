@@ -115,9 +115,9 @@ class SQueue:
         return e
 
     def enqueue(self, elem):
-        if self._num == self.__len:
+        if self._num == self._len:
             self.__extend()
-        self._elems[(self._head + self._num) % self._len] = e
+        self._elems[(self._head + self._num) % self._len] = elem
         self._num += 1
 
     def __extend(self):
