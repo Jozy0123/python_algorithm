@@ -22,10 +22,14 @@ class BinTreeList(BinTreeABC):
         return self.root[0]
 
     def num_nodes(self):
-        if self.root[0] is None:
+        if self.data() is None:
             return 0
-        elif self.root[0] is not None:
+        elif self.left() is None and self.right() is None:
             return 1
+        elif self.left() is not None and self.right() is None:
+            return self.left().num_nodes() + 1
+        elif self.right() is not None and self.left() is None:
+            return self.right().num_nodes() + 1
         else:
             return self.left().num_nodes() + 1 + self.right().num_nodes()
 
@@ -78,4 +82,5 @@ if __name__ == "__main__":
     t3.traversal()
     t3.forall(lambda x: x**2)
     print(t3)
+    print(t3.num_nodes())
 
