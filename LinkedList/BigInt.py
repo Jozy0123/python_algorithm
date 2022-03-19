@@ -1,9 +1,11 @@
-from llist import LList, LNode, LinkedListUnderFLow, LinkedListOverFLow
+from LinkedList import LList, LNode, LinkedListUnderFLow, LinkedListOverFLow
+
 
 class Digit(LNode):
     def __init__(self, elem, next_ = None, digit10Exponential = 0):
         LNode.__init__(self, elem, next_)
         self.digit10Exponential = digit10Exponential
+
 
 class BigInt(LList):
     """

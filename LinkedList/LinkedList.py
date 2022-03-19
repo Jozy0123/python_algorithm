@@ -7,12 +7,19 @@ class LinkedListOverFLow(Exception):
 
 
 class LNode:
+    """
+    Linked List Node class. This class is used to represent each node in Linked List.
+    """
     def __init__(self, elem, _next=None):
         self.elem = elem
         self.next = _next
 
 
 class LList:
+    """
+    This class is the simplest representation of linked list in Python. It has all corresponding methods just like
+    regular list.
+    """
     def __init__(self):
         self._head = None
 
@@ -210,13 +217,13 @@ class LList:
                 another_p = another_p.next
             self_p.next = another_p
 
-    def rev(self):
+    def reverse(self):
         result = LList()
         while self._head is not None:
             result.prepend(self.pop())
         self._head = result._head
 
-    def sortlist(self):
+    def sort(self):
         new = LList()
         n = self.__len__()
         i = 0
@@ -225,7 +232,7 @@ class LList:
             new.prepend(min)
             i += 1
         self._head = new._head
-        self.rev()
+        self.reverse()
 
     def partition(self, pred):
         newList = LList()
@@ -242,9 +249,15 @@ class LList:
         if pred(p.elem):
             newList.prepend(p.elem)
             self.del_last()
-        newList.rev()
+        newList.reverse()
         return newList
 
+    def filter(self, pred):
+        p = self._head
+        while p is not None:
+            if pred(p.elem):
+                yield p.elem
+            p = p.next
 
 # class BigInt(LList):
 
@@ -265,7 +278,7 @@ if __name__ == '__main__':
     print(anotherList)
     anotherList.interleaving(newList)
     print(anotherList)
-    anotherList.sortlist()
+    anotherList.sort()
     print(anotherList)
     print(anotherList.partition(lambda x: x % 2 == 0))
     print(anotherList)

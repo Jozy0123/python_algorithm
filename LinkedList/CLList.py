@@ -1,4 +1,4 @@
-from llist import LNode
+from LinkedList import LNode
 
 class LCList:
 
@@ -61,8 +61,6 @@ class LCList:
             self._rear.next = self._rear.next.next
             return elem
 
-
-
     def interleaving(self, another):
         p = self._rear.next
         head = self._rear.next
@@ -81,20 +79,19 @@ class LCList:
             if another._rear is None:
                 return
 
-    def del_minimal(self):
-        if self._rear is None:
-            return
-        p = self._rear
-        min = self._rear.elem
-        n = 0
-        while p.next is not None:
-            p = p.next
-            if p is self._rear:
-                break
-            if p.elem < min:
-                min = p.elem
-                n += 1
-        self.del(position)
+    # def del_minimal(self):
+    #     if self._rear is None:
+    #         return
+    #     p = self._rear
+    #     min = self._rear.elem
+    #     n = 0
+    #     while p.next is not None:
+    #         p = p.next
+    #         if p is self._rear:
+    #             break
+    #         if p.elem < min:
+    #             min = p.elem
+    #             n += 1
 
 
 if __name__ == "__main__":

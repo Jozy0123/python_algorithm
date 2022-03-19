@@ -1,11 +1,13 @@
-from linkedlist import LNode
-from linkedlist import LList
+from LinkedList.LinkedList import LList, LNode
+
 
 class StackUnderFlow(ValueError):
     pass
 
+
 class QueueUnderFlow(ValueError):
     pass
+
 
 class SStack:
 
@@ -30,6 +32,7 @@ class SStack:
         self._elems = self._elems[:-1]
         return p
 
+
 class LStack:
 
     def __init__(self):
@@ -52,6 +55,7 @@ class LStack:
         p = self._top.elem
         self._top = self._top.next
         return p
+
 
 class LQueue(LList):
 
@@ -84,9 +88,10 @@ class LQueue(LList):
         else:
             return self._head.elem
 
+
 class SQueue:
 
-    def __init__(self, init_len = 8):
+    def __init__(self, init_len=8):
         self._len = init_len
         self._elems = [0] * init_len
         self._head = 0
@@ -123,9 +128,8 @@ class SQueue:
             new_elems[i] = self._elems[(self._head + i) % old_len]
         self._elems, self._head = new_elems, 0
 
-      
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     weight_goal = 40
     wlist = [3, 23, 17, 60]
     knap_rec(weight_goal, wlist, 0)
