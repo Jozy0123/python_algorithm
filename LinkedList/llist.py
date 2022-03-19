@@ -1,13 +1,16 @@
 class LinkedListUnderFLow(ValueError):
     pass
 
+
 class LinkedListOverFLow(Exception):
     pass
 
+
 class LNode:
-    def __init__(self, elem, _next = None):
+    def __init__(self, elem, _next=None):
         self.elem = elem
         self.next = _next
+
 
 class LList:
     def __init__(self):
@@ -63,7 +66,7 @@ class LList:
             self.prepend(elem)
             return
         while p.next is not None:
-            if n + 1 == i :
+            if n + 1 == i:
                 p.next = LNode(elem, p.next)
                 return
             else:
@@ -213,7 +216,6 @@ class LList:
             result.prepend(self.pop())
         self._head = result._head
 
-
     def sortlist(self):
         new = LList()
         n = self.__len__()
@@ -243,6 +245,7 @@ class LList:
         newList.rev()
         return newList
 
+
 # class BigInt(LList):
 
 
@@ -258,12 +261,11 @@ if __name__ == '__main__':
     anotherList.append(6)
     anotherList.append(8)
 
-
     print(newList)
     print(anotherList)
     anotherList.interleaving(newList)
     print(anotherList)
     anotherList.sortlist()
     print(anotherList)
-    print(anotherList.partition(lambda x: x%2 == 0 ))
+    print(anotherList.partition(lambda x: x % 2 == 0))
     print(anotherList)
