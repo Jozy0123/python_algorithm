@@ -27,39 +27,46 @@ class BinTree(BinTreeABC):
         return self.root.data
 
     def left(self):
-        return self.root.left
+        return BinTree(self.root.left)
 
     def right(self):
-        return self.root.right
+        return BinTree(self.root.right)
 
-    def set_left(self, left_tree):
-        self.root.left = left_tree
+    def set_left(self, left_node):
+        self.root.left = left_node
 
-    def set_right(self, right_tree):
-        self.root.right = right_tree
+    def set_right(self, right_node):
+        self.root.right = right_node
 
     def traversal(self):
         if self.is_empty():
-            print("empty tree")
-        elif self.left() is None and self.right() is None:
-            print(self.data())
+            return
+        print(self.data())
         if self.left() is not None:
             self.left().traversal()
         if self.right() is not None:
             self.right().traversal()
 
     def forall(self, op):
-        pass
+        if self.is_empty():
+            return
+        self.root.data = op(self.root.data)
+        if self.left() is not None:
+            self.left().forall(op)
+        if self.right() is not None:
+            self.right().forall(op)
 
 
 if __name__ == "__main__":
-    t1 = BinTree(BinTNode(2, BinTree(BinTNode(4)), None))
-    t2 = BinTree(BinTNode(8, None, None))
+    t1 = BinTNode(2, BinTNode(4))
+    t2 = BinTNode(8)
     t3 = BinTree(BinTNode(5, t1, t2))
     t3.traversal()
     # t3.forall(lambda x: x**2)
     # print(t3)
     print(t3.num_nodes())
+    t3.forall(lambda x: x**2)
+    t3.traversal()
 
 
 
