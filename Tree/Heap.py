@@ -1,5 +1,4 @@
 from PriorityQueue import PriorityQueueError
-import heapq
 
 
 class Heap:
