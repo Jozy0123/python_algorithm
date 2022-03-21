@@ -1,4 +1,5 @@
 from PriorityQueue import PriorityQueueError
+import heapq
 
 
 class Heap:
@@ -19,32 +20,32 @@ class Heap:
         else:
             return self._elems[0]
 
-    def siftdown(self, e, begin, end):
+    def siftdown(self, begin, end):
         elems, i, j = self._elems, begin, 2 * begin + 1
-        elems[i] = e
         while j < end:
-            while j + 1 < end and elems[j+1] < elems[j]:
+            while j + 1 < end and elems[j+1] > elems[j]:
                 j += 1
             if elems[i] < elems[j]:
                 elems[i], elems[j] = elems[j], elems[i]
+                i, j = j, j * 2 + 1
+                continue
             else:
                 break
-            i, j = j, j * 2 + 1
 
     def enqueue(self, elem):
         if self.is_empty():
             self._elems.append(elem)
         else:
             self._elems.append(elem)
-            index = len(self._elems)
+            self.siftup(len(self._elems) - 1)
+
+    def siftup(self, elem_index):
+        index = elem_index
+        parent_index = (index - 1) // 2
+        while self._elems[parent_index] < self._elems[index] and parent_index >= 0 :
+            self._elems[parent_index], self._elems[index] = self._elems[index], self._elems[parent_index]
+            index = parent_index
             parent_index = (index - 1) // 2
-            while self._elems[parent_index] <= self._elems[index]:
-                self._elems[parent_index], self._elems[index] = self._elems[index], self._elems[parent_index]
-                if parent_index == 0:
-                    break
-                else:
-                    index = parent_index
-                    parent_index = index // 2
 
     def dequeue(self):
         if self.is_empty():
@@ -54,14 +55,23 @@ class Heap:
             return self._elems[0]
         self._elems[0] = self._elems[-1]
         elem = self._elems.pop()
-        self.siftdown(elem)
+        self.siftdown(0, len(self._elems))
+        return elem
 
     def build_heap(self):
-        for i in self._elems:
-            self.siftdown(i, 0, len(self._elems))
+        elems_count = len(self._elems)
+        for i in range(elems_count // 2, -1, -1):
+            self.siftdown(i, elems_count)
 
 
 if __name__ == "__main__":
-    h = Heap([1, 5, 43, 24, 45, 65])
+    a = [1, 5, 43, 24, 45, 65]
+    h = Heap(a)
     print(h._elems)
+    h.dequeue()
+    print(h._elems)
+    h.enqueue(50)
+    print(h._elems)
+
+
 
