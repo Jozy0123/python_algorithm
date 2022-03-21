@@ -67,9 +67,3 @@ if __name__ == "__main__":
     print(t3.num_nodes())
     t3.forall(lambda x: x**2)
     t3.traversal()
-
-
-
-
-
-
