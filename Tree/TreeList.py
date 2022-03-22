@@ -1,4 +1,4 @@
-from BinaryTreeABC import BinTreeABC
+from Tree.BinaryTreeABC import BinTreeABC
 
 
 class BinTreeList(BinTreeABC):
@@ -81,4 +81,3 @@ if __name__ == "__main__":
     t3.forall(lambda x: x**2)
     print(t3)
     print(t3.num_nodes())
-
