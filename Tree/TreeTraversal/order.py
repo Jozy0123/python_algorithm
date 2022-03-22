@@ -41,10 +41,14 @@ def tree_level_order(tree: BinTree):
         if tree.is_empty():
             continue
         print(tree.data())
-        if not tree.left().is_empty():
+        if tree.left().is_empty() is False:
             queue.enqueue(tree.left())
-        if not tree.right().is_empty():
+        if tree.right().is_empty() is False:
             queue.enqueue(tree.right())
+
+
+def tree_pre_order_nonrercur(tree: BinTree):
+
 
 
 if __name__ == "__main__":
@@ -62,6 +66,5 @@ if __name__ == "__main__":
     tree_pre_order(BinTree(t6), TraversalType.ROOT_LAST_ORDER)
     print("=======depth first======")
     tree_level_order(BinTree(t6))
-
 
 

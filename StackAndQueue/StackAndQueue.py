@@ -79,7 +79,10 @@ class LQueue(LList):
             raise QueueUnderFlow("in dequeue")
         else:
             e = self._head.elem
-            self._head = self._head.next
+            if self._head != self._rear:
+                self._head = self._head.next
+            else:
+                self._head = self._rear = None
         return e
 
     def peek(self):

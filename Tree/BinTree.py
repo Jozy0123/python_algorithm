@@ -27,10 +27,16 @@ class BinTree(BinTreeABC):
         return self.root.data
 
     def left(self):
-        return BinTree(self.root.left)
+        if self.root is not None:
+            return BinTree(self.root.left)
+        else:
+            return BinTree()
 
     def right(self):
-        return BinTree(self.root.right)
+        if self.root is not None:
+            return BinTree(self.root.right)
+        else:
+            return BinTree()
 
     def set_left(self, left_node):
         self.root.left = left_node
