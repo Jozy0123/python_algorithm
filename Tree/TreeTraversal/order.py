@@ -3,7 +3,7 @@ sys.path.append('/Users/joeyzhou/Documents/projects/PycharmProjects/python_algor
 
 from Tree.BinTree import BinTree, BinTNode
 from enum import Enum
-from StackAndQueue.StackAndQueue import SQueue
+from StackAndQueue.StackAndQueue import SQueue, LQueue
 
 
 class TraversalType(Enum):
@@ -14,24 +14,24 @@ class TraversalType(Enum):
 
 def tree_pre_order(tree: BinTree,
                    traversal: TraversalType = TraversalType.ROOT_FIRST_ORDER):
-    while tree.data() is None:
+    while tree.is_empty():
         return
     if traversal == TraversalType.ROOT_FIRST_ORDER:
         print(tree.data())
-        tree_pre_order(tree.left())
-        tree_pre_order(tree.right())
+        tree_pre_order(tree.left(), traversal)
+        tree_pre_order(tree.right(), traversal)
     elif traversal == TraversalType.ROOT_MIDDLE_ORDER:
-        tree_pre_order(tree.left())
+        tree_pre_order(tree.left(), traversal)
         print(tree.data())
-        tree_pre_order(tree.right())
+        tree_pre_order(tree.right(), traversal)
     elif traversal == TraversalType.ROOT_LAST_ORDER:
-        tree_pre_order(tree.left())
-        tree_pre_order(tree.right())
+        tree_pre_order(tree.left(), traversal)
+        tree_pre_order(tree.right(), traversal)
         print(tree.data())
 
 
 def tree_level_order(tree: BinTree):
-    queue = SQueue()
+    queue = LQueue()
     if not tree.is_empty():
         queue.enqueue(tree)
     else:
@@ -53,12 +53,15 @@ if __name__ == "__main__":
     t3 = BinTNode("B", t1, t2)
     t4 = BinTNode("F", BinTNode("J"), BinTNode("K"))
     t5 = BinTNode("C", t4, BinTNode("G"))
-    t6 = BinTNode(t3, t5)
-
+    t6 = BinTNode("A", t3, t5)
+    print("=======root first=======")
     tree_pre_order(BinTree(t6), TraversalType.ROOT_FIRST_ORDER)
+    print("=======root middle======")
     tree_pre_order(BinTree(t6), TraversalType.ROOT_MIDDLE_ORDER)
+    print("=======root last========")
     tree_pre_order(BinTree(t6), TraversalType.ROOT_LAST_ORDER)
-    tree_pre_order(BinTree(t6))
+    print("=======depth first======")
+    tree_level_order(BinTree(t6))
 
 
 
