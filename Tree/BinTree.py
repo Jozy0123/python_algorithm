@@ -41,11 +41,9 @@ class BinTree(BinTreeABC):
     def traversal(self):
         if self.is_empty():
             return
+        self.left().traversal()
         print(self.data())
-        if self.left() is not None:
-            self.left().traversal()
-        if self.right() is not None:
-            self.right().traversal()
+        self.right().traversal()
 
     def forall(self, op):
         if self.is_empty():
@@ -64,6 +62,6 @@ if __name__ == "__main__":
     t3.traversal()
     # t3.forall(lambda x: x**2)
     # print(t3)
-    print(t3.num_nodes())
-    t3.forall(lambda x: x**2)
-    t3.traversal()
+    # print(t3.num_nodes())
+    # t3.forall(lambda x: x**2)
+    # t3.traversal()
