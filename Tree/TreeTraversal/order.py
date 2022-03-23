@@ -3,7 +3,7 @@ sys.path.append('/Users/joeyzhou/Documents/projects/PycharmProjects/python_algor
 
 from Tree.BinTree import BinTree, BinTNode
 from enum import Enum
-from StackAndQueue.StackAndQueue import SQueue, LQueue, SStack, LStack
+from StackAndQueue.StackAndQueue import LQueue, SStack
 
 
 class TraversalType(Enum):
@@ -47,7 +47,7 @@ def tree_level_order(tree: BinTree):
             queue.enqueue(tree.right())
 
 
-def tree_pre_order_nonrercur(tree: BinTree):
+def tree_pre_order_nonrecur(tree: BinTree):
     stack = SStack()
     if not tree.is_empty():
         stack.push(tree)
@@ -60,30 +60,31 @@ def tree_pre_order_nonrercur(tree: BinTree):
             stack.push(sub_tree.left())
 
 
-def tree_middle_order_nonrercur(tree: BinTree):
+def tree_middle_order_nonrecur(tree: BinTree):
     stack = SStack()
-    if not tree.is_empty():
-        stack.push(tree)
-    while not stack.is_empty():
-        sub_tree = stack.pop()
-        print(sub_tree.data())
-        if not sub_tree.right().is_empty():
-            stack.push(sub_tree.right())
-        if not sub_tree.left().is_empty():
-            stack.push(sub_tree.left())
+    while not tree.is_empty() or not stack.is_empty():
+        while not tree.is_empty():
+            stack.push(tree)
+            tree = tree.left()
+        tree = stack.pop()
+        print(tree.data())
+        tree = tree.right()
 
 
-def tree_last_order_nonrercur(tree: BinTree):
+def tree_last_order_nonrecur(tree: BinTree):
     stack = SStack()
-    if not tree.is_empty():
-        stack.push(tree)
-    while not stack.is_empty():
-        sub_tree = stack.pop()
-        print(sub_tree.data())
-        if not sub_tree.right().is_empty():
-            stack.push(sub_tree.right())
-        if not sub_tree.left().is_empty():
-            stack.push(sub_tree.left())
+    while not tree.is_empty() or not stack.is_empty():
+        while not tree.is_empty():
+            stack.push(tree)
+            if not tree.right().is_empty():
+                stack.push(tree.right())
+            tree = tree.left()
+        tree = stack.pop()
+        print(tree.data())
+        if tree == stack.top().right():
+            tree = stack.pop()
+            print(tree.data())
+            tree = stack.pop()
 
 
 if __name__ == "__main__":
@@ -102,10 +103,8 @@ if __name__ == "__main__":
     print("=======depth first======")
     tree_level_order(BinTree(t6))
     print("=======non recursive root first======")
-    tree_pre_order_nonrercur(BinTree(t6))
+    tree_pre_order_nonrecur(BinTree(t6))
     print("=======non recursive root middle======")
-    tree_middle_order_nonrercur(BinTree(t6))
+    tree_middle_order_nonrecur(BinTree(t6))
     print("=======non recursive root last======")
-    tree_last_order_nonrercur(BinTree(t6))
-
-
+    tree_last_order_nonrecur(BinTree(t6))

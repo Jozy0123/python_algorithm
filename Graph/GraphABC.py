@@ -42,4 +42,3 @@ class GraphABC(ABC):
     @abstractmethod
     def degree(self, v):
         pass
-
