@@ -76,15 +76,32 @@ def tree_last_order_nonrecur(tree: BinTree):
     while not tree.is_empty() or not stack.is_empty():
         while not tree.is_empty():
             stack.push(tree)
-            if not tree.right().is_empty():
-                stack.push(tree.right())
-            tree = tree.left()
+            if not tree.left().is_empty():
+                tree = tree.left()
+            else:
+                tree = tree.right()
         tree = stack.pop()
         print(tree.data())
-        if tree == stack.top().right():
-            tree = stack.pop()
-            print(tree.data())
-            tree = stack.pop()
+        if not stack.is_empty() and stack.top().left() == tree:
+            tree = stack.top().right()
+        else:
+            tree = BinTree()
+
+
+def tree_post_order_nonrecur(tree: BinTree):
+    stack_1 = SStack()
+    stack_2 = SStack()
+    stack_1.push(tree)
+    while not stack_1.is_empty():
+        tree = stack_1.pop()
+        stack_2.push(tree)
+        if not tree.left().is_empty():
+            stack_1.push(tree.left())
+        if not tree.right().is_empty():
+            stack_1.push(tree.right())
+    while not stack_2.is_empty():
+        tree = stack_2.pop()
+        print(tree.data())
 
 
 if __name__ == "__main__":
@@ -108,3 +125,5 @@ if __name__ == "__main__":
     tree_middle_order_nonrecur(BinTree(t6))
     print("=======non recursive root last======")
     tree_last_order_nonrecur(BinTree(t6))
+    print("=======non recursive root post order======")
+    tree_post_order_nonrecur(BinTree(t6))
