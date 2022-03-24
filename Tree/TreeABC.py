@@ -16,19 +16,19 @@ class TreeABC(ABC):
         pass
 
     @abstractmethod
-    def left(self):
+    def first_child(self):
         pass
 
     @abstractmethod
-    def right(self):
+    def children(self):
         pass
 
     @abstractmethod
-    def set_left(self, btree):
+    def set_first(self, tree):
         pass
 
     @abstractmethod
-    def set_right(self, btree):
+    def insert_child(self, tree):
         pass
 
     @abstractmethod

@@ -1,7 +1,7 @@
 from Tree.BinaryTreeABC import BinTreeABC
 
 
-class BinTreeList(BinTreeABC):
+class BinaryTreeList(BinTreeABC):
 
     def __init__(self, data, left=None, right=None):
         if left is not None:
