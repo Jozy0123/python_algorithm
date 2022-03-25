@@ -43,7 +43,7 @@ class Graph(GraphABC):
         if self._nodes_map.get(vertex) is not None:
             raise ValueError("vertex has already been added!")
         self._num_nodes += 1
-        self._nodes_map[vertex] = self._num_nodes
+        self._nodes_map[vertex] = self._num_nodes - 1
 
         for i in self._matrix:
             i.append(self._unconn)
@@ -63,7 +63,7 @@ class Graph(GraphABC):
     def out_edge(self, node):
         for i in range(len(self._matrix[self._nodes_map[node]])):
             if self._matrix[self._nodes_map[node]][i] == 1:
-                yield i + 1
+                yield f"{node} <-> {i+1}"
 
     def degree(self, node):
         degree = 0
@@ -82,3 +82,7 @@ if __name__ == "__main__":
     print(G.vertices())
     print(G.vertex_num())
     print(G.edge_num())
+    G.add_vertex(5)
+    G.add_edge(5, 4)
+    print(G.edge_num())
+    print(G.edges())
