@@ -1,4 +1,4 @@
-from StackAndQueue import SStack
+from StackAndQueue.StackAndQueue import SStack
 
 class occupied(ValueError):
     pass
@@ -108,6 +108,7 @@ class chessBoard:
         self.occupy((i, j))
         for o in queen.attacking_pos:
             self.occupy(o)
+
 
 if __name__ == "__main__":
 
