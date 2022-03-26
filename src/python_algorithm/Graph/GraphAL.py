@@ -65,8 +65,9 @@ class GraphAL(GraphABC):
                     yield f"{j[0]} -> {i}"
         else:
             for i in self._nodes_map.keys():
-                for j in self._matrix[self._nodes_map[i]][i-1:]:
-                    yield f"{j[0]} <-> {i}"
+                for j in self._matrix[self._nodes_map[i]]:
+                    if j[0] > i:
+                        yield f"{j[0]} <-> {i}"
 
     def add_vertex(self, v):
         if self._nodes_map.get(v, None) is not None:
@@ -78,17 +79,22 @@ class GraphAL(GraphABC):
     def add_edge(self, v1, v2):
         if self._nodes_map.get(v1, None) is None or self._nodes_map.get(v2, None) is None:
             raise ValueError("at least one of the node does not exist, add it first")
-        if not self._directional:
-            for i in self._matrix[self._nodes_map[v1]]:
-                if v2 == i[0]:
+        edge_list_len = len(self._matrix[self._nodes_map[v1]])
+        if self._directional:
+            i = 0
+            while i < edge_list_len:
+                if v2 == self._matrix[i][0]:
                     raise ValueError("edge exists!")
-            self._matrix[self._nodes_map[v1]].insert(self._nodes_map[v2], (v2, 1))
-            self._matrix[self._nodes_map[v2]].insert(self._nodes_map[v1], (v1, 1))
+                i += 1
+            self._matrix[self._nodes_map[v1]].insert(i, (v2, 1))
         else:
-            for i in self._matrix[self._nodes_map[v1]]:
-                if v2 == i[0]:
+            i = 0
+            while i < edge_list_len:
+                if v2 == self._matrix[i][0]:
                     raise ValueError("edge exists!")
-            self._matrix[self._nodes_map[v1]].insert(self._nodes_map[v2], (v2, 1))
+                i += 1
+            self._matrix[self._nodes_map[v1]].insert(i, (v2, 1))
+            self._matrix[self._nodes_map[v2]].insert(i, (v1, 1))
 
     def get_edge(self, v1, v2):
         if self._nodes_map.get(v1, None) is None or self._nodes_map.get(v2, None) is None:
@@ -97,7 +103,6 @@ class GraphAL(GraphABC):
             if v2 == i[0]:
                 return v1, v2, i[1]
         return v1, v2, 0
-
 
     def out_edge(self, v):
         for i in self._matrix[self._nodes_map[v]]:
@@ -121,5 +126,6 @@ if __name__ == "__main__":
     print(G.edge_num())
     G.add_vertex(5)
     G.add_edge(5, 4)
+    print(G.vertex_num())
     print(G.edge_num())
     print([i for i in G.edges()])
