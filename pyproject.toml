@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "python-algorithm"
 version = "0.1.0"
-description = "Calculate word counts in a text file."
+description = "Personal Algorithms practice."
 authors = ["Joey Zhou"]
 license = "MIT"
 readme = "README.md"
