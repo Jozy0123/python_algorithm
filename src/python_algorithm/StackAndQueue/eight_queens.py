@@ -108,7 +108,7 @@ class chessBoard:
             self.occupy(o)
 
 
-if __name__ == "__main__":
+def main():
 
     newboard = chessBoard()
     queens_list = []
@@ -148,3 +148,7 @@ if __name__ == "__main__":
             continue
         else:
             break
+
+
+if __name__ == '__main':
+    main()

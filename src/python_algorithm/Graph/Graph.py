@@ -73,6 +73,16 @@ class Graph(GraphABC):
         return degree
 
 
+def traversal_graph(graph: Graph, visited):
+    init_node = graph.vertices()[0]
+    visited[init_node] = 1
+    out_nodes = []
+    for out in graph.out_edge(init_node):
+        out_node = out.split(" <-> ")[1]
+        if out_node not in visited:
+            traversal_graph()
+
+
 if __name__ == "__main__":
     mat = [[0, 1, 1, 0], [1, 0, 1, 0], [1, 1, 0, 1], [0, 0, 1, 0]]
     G = Graph(matrix=mat)
@@ -86,3 +96,5 @@ if __name__ == "__main__":
     G.add_edge(5, 4)
     print(G.edge_num())
     print(G.edges())
+
+

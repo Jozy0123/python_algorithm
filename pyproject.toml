@@ -9,6 +9,9 @@ packages = [
     { include = "python_algorithm", from = 'src' },
 ]
 
+[tool.poetry.scripts]
+eight_queens = 'python_algorithm.StackAndQueue.eight_queens:main'
+
 [tool.poetry.dependencies]
 python = "^3.8"
 
