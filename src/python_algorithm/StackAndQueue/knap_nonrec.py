@@ -1,4 +1,4 @@
-from python_algorithm.StackAndQueue import SStack
+from python_algorithm.StackAndQueue.StackAndQueue import SStack
 
 
 def knap_nonrec(weight, wlist, n):

@@ -1,6 +1,6 @@
-from python_algorithm.LinkedList import LList
-from python_algorithm.LinkedList import LNode
-from python_algorithm.LinkedList import LinkedListUnderFLow
+from python_algorithm.LinkedList.LinkedList import LList
+from python_algorithm.LinkedList.LinkedList import LNode
+from python_algorithm.LinkedList.LinkedList import LinkedListUnderFLow
 from random import randint
 
 

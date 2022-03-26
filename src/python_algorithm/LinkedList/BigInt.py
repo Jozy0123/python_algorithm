@@ -1,4 +1,4 @@
-from python_algorithm.LinkedList import LList, LNode, LinkedListOverFLow
+from python_algorithm.LinkedList.LinkedList import LList, LNode, LinkedListOverFLow
 
 
 class Digit(LNode):
