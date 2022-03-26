@@ -1,5 +1,5 @@
-from LinkedList import LinkedListUnderFLow
-from LinkedList import LNode
+from python_algorithm.LinkedList import LinkedListUnderFLow
+from python_algorithm.LinkedList import LNode
 from DoubleLinkedList import DoubleList
 
 

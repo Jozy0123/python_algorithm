@@ -1,10 +1,13 @@
 [tool.poetry]
-name = "python_algorithm"
+name = "python-algorithm"
 version = "0.1.0"
 description = "Calculate word counts in a text file."
 authors = ["Joey Zhou"]
 license = "MIT"
 readme = "README.md"
+packages = [
+    { include = "python_algorithm", from = 'python_algorithm' },
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"

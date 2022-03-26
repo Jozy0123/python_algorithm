@@ -1,9 +1,9 @@
 import sys
-sys.path.append('/Users/joeyzhou/Documents/projects/PycharmProjects/python_algorithm')
+sys.path.append('/')
 
-from Tree.BinTree import BinTree, BinTNode
+from python_algorithm.Tree.BinTree import BinTree, BinTNode
 from enum import Enum
-from StackAndQueue.StackAndQueue import LQueue, SStack
+from python_algorithm.StackAndQueue.StackAndQueue import LQueue, SStack
 
 
 class TraversalType(Enum):

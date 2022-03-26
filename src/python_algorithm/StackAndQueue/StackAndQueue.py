@@ -1,4 +1,4 @@
-from LinkedList.LinkedList import LList, LNode
+from python_algorithm.LinkedList.LinkedList import LList, LNode
 
 
 class StackUnderFlow(ValueError):

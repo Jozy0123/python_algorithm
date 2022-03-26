@@ -1,4 +1,4 @@
-from GraphABC import GraphABC
+from python_algorithm.Graph.GraphABC import GraphABC
 
 
 ### non directional graph

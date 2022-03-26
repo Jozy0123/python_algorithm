@@ -1,4 +1,4 @@
-from Tree.PriorityQueue import PriorityQueueError
+from python_algorithm.Tree.PriorityQueue import PriorityQueueError
 
 
 class Heap:

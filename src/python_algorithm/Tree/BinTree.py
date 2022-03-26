@@ -1,4 +1,4 @@
-from Tree.BinaryTreeABC import BinTreeABC
+from python_algorithm.Tree.BinaryTreeABC import BinTreeABC
 
 
 class BinTNode:
