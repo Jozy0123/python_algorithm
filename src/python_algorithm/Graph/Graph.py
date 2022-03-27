@@ -1,12 +1,17 @@
 from python_algorithm.Graph.GraphABC import GraphABC
-
+from typing import List, Iterator, Set, Optional
+from copy import copy
 
 ### non directional graph
 class Graph(GraphABC):
 
     def __init__(self, matrix=None, unconn=0, nodes_map=None):
-        if nodes_map is None:
+        if nodes_map is None and matrix is not None:
             nodes_map = {i+1: i for i in range(len(matrix))}
+        elif nodes_map is None and matrix is None:
+            nodes_map = {}
+        else:
+            nodes_map = copy(nodes_map)
         nodes_count = len(matrix)
         for i in matrix:
             if len(i) != nodes_count:
@@ -16,22 +21,22 @@ class Graph(GraphABC):
         self._num_nodes = nodes_count
         self._nodes_map = nodes_map
 
-    def vertex_num(self):
+    def vertex_num(self) -> int:
         return self._num_nodes
 
-    def edge_num(self):
-        return sum([1 for i in self._matrix for j in i if j != self._unconn])/2
+    def edge_num(self) -> int:
+        return int(sum([1 for i in self._matrix for j in i if j != self._unconn])/2)
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         if self._matrix is None or self._num_nodes == 0:
             return True
         else:
             return False
 
-    def vertices(self):
+    def vertices(self) -> List[int]:
         return [i for i in self._nodes_map.keys()]
 
-    def edges(self):
+    def edges(self) -> Set[str]:
         edges_set = set()
         for i in range(self._num_nodes):
             for j in range(i, self._num_nodes):
@@ -57,30 +62,24 @@ class Graph(GraphABC):
             self._matrix[self._nodes_map[node_1]][self._nodes_map[node_2]] = 1
             self._matrix[self._nodes_map[node_2]][self._nodes_map[node_1]] = 1
 
-    def get_edge(self, node_1, node_2):
-        return self._matrix[node_1][node_2]
+    def get_edge(self, node_1, node_2) -> Optional[int]:
+        conn = self._matrix[self._nodes_map[node_1]][self._nodes_map[node_2]]
+        if conn == self._unconn:
+            return None
+        else:
+            return conn
 
-    def out_edge(self, node):
+    def out_edge(self, node) -> Iterator[str]:
         for i in range(len(self._matrix[self._nodes_map[node]])):
             if self._matrix[self._nodes_map[node]][i] == 1:
                 yield f"{node} <-> {i+1}"
 
-    def degree(self, node):
+    def degree(self, node) -> int:
         degree = 0
         for _ in self.out_edge(node):
             degree += 1
 
         return degree
-
-
-def traversal_graph(graph: Graph, visited):
-    init_node = graph.vertices()[0]
-    visited[init_node] = 1
-    out_nodes = []
-    for out in graph.out_edge(init_node):
-        out_node = out.split(" <-> ")[1]
-        if out_node not in visited:
-            traversal_graph()
 
 
 if __name__ == "__main__":
@@ -96,5 +95,3 @@ if __name__ == "__main__":
     G.add_edge(5, 4)
     print(G.edge_num())
     print(G.edges())
-
-

@@ -1,5 +1,5 @@
 from python_algorithm.Graph.GraphABC import GraphABC
-from typing import List, Union, Dict, Optional
+from typing import List, Union, Dict, Optional, Iterator, Tuple, Set
 from copy import copy
 
 
@@ -22,12 +22,14 @@ class GraphAL(GraphABC):
                  nodes_map: Optional[Dict[int, int]] = None,
                  directional: bool = False
                  ):
-        if nodes_map is None:
-            nodes_map = {i + 1: i for i in range(len(matrix))}
+        if nodes_map is None and matrix is not None:
+            nodes_map = {i+1: i for i in range(len(matrix))}
+        elif nodes_map is None and matrix is None:
+            nodes_map = {}
         else:
             nodes_map = copy(nodes_map)
 
-        if matrix is None:
+        if matrix is None and nodes_map is not None:
             matrix = []
         else:
             matrix = list(i[:] for i in matrix)
@@ -37,28 +39,34 @@ class GraphAL(GraphABC):
             if len(i) != vertices_num:
                 raise ValueError("The input matrix must be square!")
 
-        self._matrix = [out_edge(i, unconn, nodes_map) for i in matrix]
+        if vertices_num == 0:
+            for _ in nodes_map.keys():
+                matrix.append([])
+        else:
+            matrix = [out_edge(i, unconn, nodes_map) for i in matrix]
+
+        self._matrix = matrix
         self._vnum = vertices_num
         self._unconn = unconn
         self._nodes_map = nodes_map
         self._directional = directional
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return self._vnum == 0
 
-    def vertex_num(self):
+    def vertex_num(self) -> int:
         return self._vnum
 
-    def edge_num(self):
+    def edge_num(self) -> int:
         if self._directional:
             return sum([len(i) for i in self._matrix])
         else:
-            return sum([len(i) for i in self._matrix]) / 2
+            return int(sum([len(i) for i in self._matrix]) / 2)
 
-    def vertices(self):
+    def vertices(self) -> List[int]:
         return list(self._nodes_map.keys())
 
-    def edges(self):
+    def edges(self) -> Iterator[str]:
         if self._directional:
             for i in self._nodes_map.keys():
                 for j in self._matrix[self._nodes_map[i]]:
@@ -74,7 +82,7 @@ class GraphAL(GraphABC):
             raise ValueError("Node exists!")
         self._matrix.append([])
         self._vnum = self._vnum + 1
-        self._nodes_map[self._vnum] = self._vnum - 1
+        self._nodes_map[v] = self._vnum - 1
 
     def add_edge(self, v1, v2):
         if self._nodes_map.get(v1, None) is None or self._nodes_map.get(v2, None) is None:
@@ -96,7 +104,7 @@ class GraphAL(GraphABC):
             self._matrix[self._nodes_map[v1]].insert(i, (v2, 1))
             self._matrix[self._nodes_map[v2]].insert(i, (v1, 1))
 
-    def get_edge(self, v1, v2):
+    def get_edge(self, v1, v2) -> Tuple[int, int, int]:
         if self._nodes_map.get(v1, None) is None or self._nodes_map.get(v2, None) is None:
             raise ValueError("at least one of the node does not exist, add it first")
         for i in self._matrix[self._nodes_map[v1]]:
@@ -104,11 +112,15 @@ class GraphAL(GraphABC):
                 return v1, v2, i[1]
         return v1, v2, 0
 
-    def out_edge(self, v):
-        for i in self._matrix[self._nodes_map[v]]:
-            yield i
+    def out_edge(self, v) -> Iterator[str]:
+        if self._directional:
+            for i in self._matrix[self._nodes_map[v]]:
+                yield f"{v} -> {i[0]}"
+        else:
+            for i in self._matrix[self._nodes_map[v]]:
+                yield f"{v} <-> {i[0]}"
 
-    def degree(self, v):
+    def degree(self, v) -> int:
         degree = 0
         for _ in self._matrix[self._nodes_map[v]]:
             degree += 1

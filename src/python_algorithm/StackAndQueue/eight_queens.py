@@ -1,14 +1,15 @@
 class occupied(ValueError):
     pass
 
+
 class outofbound(ValueError):
     pass
 
-class queens:
 
+class queens:
     queen_num = 0
 
-    def __init__(self, pos = (0, 0)):
+    def __init__(self, pos=(0, 0)):
         self.pos = pos
         self.attacking_pos = []
         for i in range(8):
@@ -33,7 +34,7 @@ class queens:
 
 class chessBoard:
 
-    def __init__(self, board_x = 8, board_y = 8):
+    def __init__(self, board_x=8, board_y=8):
         self.board_x = board_x
         self.board_y = board_y
         self.make_board()
@@ -51,13 +52,13 @@ class chessBoard:
         print(self.board)
 
     def is_occupy(self, pos):
-        if pos[0] > 8 or pos[0] < 0 or pos[1] > 8 or pos[1] <0:
+        if pos[0] > 8 or pos[0] < 0 or pos[1] > 8 or pos[1] < 0:
             return
         copy = self.board
-        return copy[pos[0]][pos[1]] ==  1
+        return copy[pos[0]][pos[1]] == 1
 
     def occupy(self, pos):
-        if pos[0] > 8 or pos[0] < 0 or pos[1] > 8 or pos[1] <0:
+        if pos[0] > 8 or pos[0] < 0 or pos[1] > 8 or pos[1] < 0:
             raise outofbound("position not on board")
         if not self.is_occupy(pos):
             copy = self.board
@@ -84,24 +85,24 @@ class chessBoard:
         else:
             return False
 
-    def occupy_next_pos(self, pos, occupy = True):
+    def occupy_next_pos(self, pos, occupy=True):
 
-       new_pos = pos
-       while True:
-           new_pos = chessBoard.get_next_pos(new_pos)
-           if not chessBoard.validate_pos(new_pos):
-               return (-1, -1)
-           elif not self.is_occupy(new_pos) and occupy:
-               self.board[pos[0]][pos[1]] = 1
-               return new_pos
-           elif not self.is_occupy(new_pos) and occupy == False:
-               return new_pos
-           else:
-               continue
+        new_pos = pos
+        while True:
+            new_pos = chessBoard.get_next_pos(new_pos)
+            if not chessBoard.validate_pos(new_pos):
+                return (-1, -1)
+            elif not self.is_occupy(new_pos) and occupy:
+                self.board[pos[0]][pos[1]] = 1
+                return new_pos
+            elif not self.is_occupy(new_pos) and occupy == False:
+                return new_pos
+            else:
+                continue
 
     def put_queen(self, i, j):
-        queen = queens((i,j))
-        if self.is_occupy((i,j)):
+        queen = queens((i, j))
+        if self.is_occupy((i, j)):
             return
         self.occupy((i, j))
         for o in queen.attacking_pos:
@@ -109,15 +110,14 @@ class chessBoard:
 
 
 def main():
-
     newboard = chessBoard()
     queens_list = []
 
     for i in range(8):
         for j in range(8):
             if len(queens_list) < 9:
-                if not newboard.is_occupy((i,j)):
-                    newboard.put_queen(i,j)
+                if not newboard.is_occupy((i, j)):
+                    newboard.put_queen(i, j)
                     queens_list.append((i, j))
     print(queens_list)
 
@@ -142,7 +142,7 @@ def main():
                     new_queen = queens(next_pos)
                     queens_list.append(next_pos)
                     newboard.put_queen(next_pos[0], next_pos[1])
-                    next_pos = newboard.occupy_next_pos(next_pos, occupy = False)
+                    next_pos = newboard.occupy_next_pos(next_pos, occupy=False)
             if len(queens_list) == 8:
                 print(queens_list)
             continue
