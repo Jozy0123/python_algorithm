@@ -56,6 +56,18 @@ class LStack:
         self._top = self._top.next
         return p
 
+    def __str__(self):
+        p = self._top
+        lt = []
+        if p is None:
+            return ''
+        while p.next is not None:
+            elem = p.elem
+            lt.append(elem)
+            p = p.next
+        lt.append(p.elem)
+        return ','.join(lt)
+
 
 class LQueue(LList):
 

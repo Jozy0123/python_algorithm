@@ -5,36 +5,36 @@ class BinTreeABC(ABC):
 
     @abstractmethod
     def is_empty(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def num_nodes(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def data(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def left(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def right(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def set_left(self, btree):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def set_right(self, btree):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def traversal(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def forall(self, op):
-        pass
+        raise NotImplementedError

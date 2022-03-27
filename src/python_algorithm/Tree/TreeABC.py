@@ -5,36 +5,36 @@ class TreeABC(ABC):
 
     @abstractmethod
     def is_empty(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def num_nodes(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def data(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def first_child(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def children(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def set_first(self, tree):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def insert_child(self, tree):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def traversal(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def forall(self, op):
-        pass
+        raise NotImplementedError

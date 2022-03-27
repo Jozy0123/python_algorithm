@@ -5,40 +5,40 @@ class GraphABC(ABC):
 
     @abstractmethod
     def is_empty(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def vertex_num(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def edge_num(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def vertices(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def edges(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def add_vertex(self, vertex):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def add_edge(self, v1, v2):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def get_edge(self, v1, v2):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def out_edge(self, v):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def degree(self, v):
-        pass
+        raise NotImplementedError

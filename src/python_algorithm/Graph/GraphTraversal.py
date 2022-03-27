@@ -4,17 +4,21 @@ from typing import Set, Any
 
 
 def traversal_graph(graph: GraphAL):
-    def traversal_graph_util(node: Any, visited_in: Set[Any]):
-        visited_in.add(node)
-        for i in graph.out_edge(node):
-            neighbor = i.split(" <-> ")[1]
-            if neighbor not in visited_in:
-                traversal_graph_util(neighbor, visited_in)
-
+    seq = []
     visited = set()
     init_node = graph.vertices()[0]
-    traversal_graph_util(init_node, visited)
-    print(visited)
+
+    def traversal_graph_util(node: Any, visited_in: Set[Any], seq):
+        visited_in.add(node)
+        seq.append(node)
+
+        neighbors = [neighbor.split(" <-> ")[1] for neighbor in graph.out_edge(node)]
+        for neighbor in sorted(neighbors):
+            if neighbor not in visited_in:
+                traversal_graph_util(neighbor, visited_in, seq)
+
+    traversal_graph_util(init_node, visited, seq)
+    print(seq)
 
 
 def DFS_traversal_graph(graph: GraphAL):
@@ -22,19 +26,19 @@ def DFS_traversal_graph(graph: GraphAL):
 
     stack = LStack()
     init_node = graph.vertices()[0]
-    visited.add(init_node)
-    yield init_node
-
     stack.push(init_node)
 
     while not stack.is_empty():
         node = stack.pop()
-        for i in sorted(graph.out_edge(node)):
-            neighbor = i.split(" <-> ")[1]
+        if node not in visited:
+            visited.add(node)
+            yield node
+        else:
+            continue
+        neighbors = sorted([neighbor.split(" <-> ")[1] for neighbor in graph.out_edge(node)])[::-1]
+        for neighbor in neighbors:
             if neighbor not in visited:
                 stack.push(neighbor)
-                visited.add(neighbor)
-                yield neighbor
 
 
 def BSF_traversal_graph(graph: GraphAL):
@@ -48,8 +52,8 @@ def BSF_traversal_graph(graph: GraphAL):
     queue.append(init_node)
     while not queue.is_empty():
         node = queue.pop()
-        for i in sorted(graph.out_edge(node)):
-            neighbor = i.split(" <-> ")[1]
+        neighbors = [neighbor.split(" <-> ")[1] for neighbor in graph.out_edge(node)]
+        for neighbor in sorted(neighbors):
             if neighbor not in visited:
                 queue.append(neighbor)
                 visited.add(neighbor)
@@ -75,7 +79,7 @@ if __name__ == "__main__":
     traversal_graph(G)
     print("===========DFS-non-recursive==========")
     for i in DFS_traversal_graph(G):
-        print(i)
+        print(f"current node : {i}")
     print("===========BFS-non-recursive==========")
     for i in BSF_traversal_graph(G):
         print(i)
