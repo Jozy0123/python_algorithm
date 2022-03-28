@@ -17,8 +17,6 @@ def selection_sort(lst: List[Record]) -> List[Record]:
                 current_max = lst[i]
             i += 1
 
-        print(cur_max_index, current_max.data, [i.data for i in lst])
-
         if current_max > lst[sorted_index]:
             lst[sorted_index], lst[cur_max_index] = lst[cur_max_index], lst[sorted_index]
         sorted_index -= 1
