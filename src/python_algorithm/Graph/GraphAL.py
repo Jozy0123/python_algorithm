@@ -110,7 +110,7 @@ class GraphAL(GraphABC):
         for i in self._matrix[self._nodes_map[v1]]:
             if v2 == i[0]:
                 return v1, v2, i[1]
-        return v1, v2, 0
+        return v1, v2, self._unconn
 
     def out_edge(self, v) -> Iterator[str]:
         if self._directional:
