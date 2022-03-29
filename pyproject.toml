@@ -18,8 +18,8 @@ python = "^3.8"
 [tool.poetry.dev-dependencies]
 python-semantic-release = "^7.27.0"
 
-[tool.semantic-release]
-version_variable = "pyroject.toml:version"
+[tool.semantic_release]
+version_variable = "pyproject.toml:version"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
