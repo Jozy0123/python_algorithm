@@ -116,3 +116,46 @@ class DictBinTree(DictABC):
             parent.left = child.left
         else:
             parent.right = child.left
+
+
+class DictOptBinTree(DictBinTree):
+
+    def __init__(self, seq):
+        super().__init__()
+        data = sorted(seq, key=lambda x:x.key)
+        self._root = DictOptBinTree.build_opt_tree(data, 0, len(data)-1)
+
+    @staticmethod
+    def build_opt_tree(data, start, end):
+        if start > end:
+            return None
+        mid = (start - end)//2
+        left = DictOptBinTree.build_opt_tree(data, start, mid-1)
+        right = DictOptBinTree.build_opt_tree(data, mid+1, end)
+        return BinTNode(Record(*data[mid]), left, right)
+
+
+# class DictOptBinTreeWeight(DictBinTree):
+#
+#     def __init__(self, internal_node_weights=None, external_weights=None):
+#         super().__init__()
+#         self.internal_node_weights = internal_node_weights
+#         self.external_weights = external_weights
+#         DictOptBinTree.build_opt_tree(internal_node_weights, external_weights)
+#
+#     @staticmethod
+#     def build_opt_btree(internal_node_weights, external_weights):
+#
+#         internal_node_count = len(internal_node_weights) + 1
+#         if len(external_weights) != internal_node_count:
+#             raise ValueError("Arguments are wrong. external_weights number must be 1 + internal nodes!")
+#
+#         weights_matrix = [[0] * internal_node_count for j in range(internal_node_count)]
+#         tree_cost_matrix = [[0] * internal_node_count for j in range(internal_node_count)]
+#         root_marker_matrix = [[0] * internal_node_count for j in range(internal_node_count)]
+#
+#         for i in range(internal_node_count):
+#             weights_matrix[i][i] = external_weights[i]
+#             for j in range(i+1, internal_node_count):
+
+
