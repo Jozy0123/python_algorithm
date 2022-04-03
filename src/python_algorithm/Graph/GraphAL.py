@@ -70,12 +70,12 @@ class GraphAL(GraphABC):
         if self._directional:
             for i in self._nodes_map.keys():
                 for j in self._matrix[self._nodes_map[i]]:
-                    yield f"{j[0]} -> {i}"
+                    yield f"{j[0]} -> {i} -> {j[1]}"
         else:
             for i in self._nodes_map.keys():
                 for j in self._matrix[self._nodes_map[i]]:
                     if j[0] > i:
-                        yield f"{j[0]} <-> {i}"
+                        yield f"{j[0]} <-> {i} <-> {j[1]}"
 
     def add_vertex(self, v):
         if self._nodes_map.get(v, None) is not None:
@@ -84,7 +84,7 @@ class GraphAL(GraphABC):
         self._vnum = self._vnum + 1
         self._nodes_map[v] = self._vnum - 1
 
-    def add_edge(self, v1, v2):
+    def add_edge(self, v1, v2, weight=1):
         if self._nodes_map.get(v1, None) is None or self._nodes_map.get(v2, None) is None:
             raise ValueError("at least one of the node does not exist, add it first")
         edge_list_len = len(self._matrix[self._nodes_map[v1]])
@@ -94,15 +94,15 @@ class GraphAL(GraphABC):
                 if v2 == self._matrix[i][0]:
                     raise ValueError("edge exists!")
                 i += 1
-            self._matrix[self._nodes_map[v1]].insert(i, (v2, 1))
+            self._matrix[self._nodes_map[v1]].insert(i, (v2, weight))
         else:
             i = 0
             while i < edge_list_len:
                 if v2 == self._matrix[i][0]:
                     raise ValueError("edge exists!")
                 i += 1
-            self._matrix[self._nodes_map[v1]].insert(i, (v2, 1))
-            self._matrix[self._nodes_map[v2]].insert(i, (v1, 1))
+            self._matrix[self._nodes_map[v1]].insert(i, (v2, weight))
+            self._matrix[self._nodes_map[v2]].insert(i, (v1, weight))
 
     def get_edge(self, v1, v2) -> Tuple[int, int, int]:
         if self._nodes_map.get(v1, None) is None or self._nodes_map.get(v2, None) is None:
@@ -115,10 +115,10 @@ class GraphAL(GraphABC):
     def out_edge(self, v) -> Iterator[str]:
         if self._directional:
             for i in self._matrix[self._nodes_map[v]]:
-                yield f"{v} -> {i[0]}"
+                yield f"{v} -> {i[0]} -> {i[1]}"
         else:
             for i in self._matrix[self._nodes_map[v]]:
-                yield f"{v} <-> {i[0]}"
+                yield f"{v} <-> {i[0]} <-> {i[1]}"
 
     def degree(self, v) -> int:
         degree = 0
