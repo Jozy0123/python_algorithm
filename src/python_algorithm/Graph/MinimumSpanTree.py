@@ -5,12 +5,12 @@ edge_tuple = namedtuple('edge_tuple', ['start_edge', 'end_edge', 'weight'])
 
 
 def kruskal(graph: GraphAL):
-    if graph._directional:
+    if graph.is_directed:
         split_sign = ' -> '
     else:
         split_sign = ' <-> '
     vnum = graph.vertex_num()
-    reps = graph._nodes_map
+    reps = graph.nodes_rep
     mst, edges = [], set()
 
     for vi in graph.vertices():

@@ -1,5 +1,5 @@
 from python_algorithm.Graph.GraphABC import GraphABC
-from typing import List, Union, Dict, Optional, Iterator, Tuple, Set
+from typing import List, Union, Dict, Optional, Iterator, Tuple, Any
 from copy import copy
 
 
@@ -50,6 +50,14 @@ class GraphAL(GraphABC):
         self._unconn = unconn
         self._nodes_map = nodes_map
         self._directional = directional
+
+    @property
+    def is_directed(self) -> bool:
+        return self._directional
+
+    @property
+    def nodes_rep(self) -> Dict[Any, int]:
+        return self._nodes_map
 
     def is_empty(self) -> bool:
         return self._vnum == 0
