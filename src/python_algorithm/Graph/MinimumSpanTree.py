@@ -56,7 +56,7 @@ def kruskal(graph: GraphAL) -> List[Tuple[str, str, int]]:
     return mst
 
 
-def prim(graph: GraphAL) -> Dict[str, Tuple[str, str, int]]:
+def prim(graph: GraphAL) -> Dict[str, EdgeTuple]:
     if graph.is_directed:
         split_sign = ' -> '
     else:
@@ -71,12 +71,12 @@ def prim(graph: GraphAL) -> Dict[str, Tuple[str, str, int]]:
     candidates = PriorityQueueHeap([EdgeTuple(start_node, start_node, 0)])
 
     while len(edges_set) < vnum and not candidates.is_empty():
-        start_node, end_node, weight = candidates.dequeue()
-        if mst.get(end_node, None) is not None:
+        edge_tuple = candidates.dequeue()
+        if mst.get(edge_tuple.end_node, None) is not None:
             continue
-        mst[end_node] = EdgeTuple(start_node, end_node, -1 * weight)
-        edges_set.add(end_node)
-        for edge_ in graph.out_edge(end_node):
+        mst[edge_tuple.end_node] = EdgeTuple(edge_tuple.start_node, edge_tuple.end_node, -1 * edge_tuple.weight)
+        edges_set.add(edge_tuple.end_node)
+        for edge_ in graph.out_edge(edge_tuple.end_node):
 
             edge = edge_.split(split_sign)
             end_node = edge_.split(split_sign)[1]
