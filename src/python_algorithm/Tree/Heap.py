@@ -53,8 +53,9 @@ class Heap:
             elem = self._elems[0]
             self._elems = []
             return elem
+        elem = self._elems[0]
         self._elems[0] = self._elems[-1]
-        elem = self._elems.pop()
+        self._elems.pop(-1)
         self.siftdown(0, len(self._elems))
         return elem
 

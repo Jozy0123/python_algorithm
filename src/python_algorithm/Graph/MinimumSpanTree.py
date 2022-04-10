@@ -67,22 +67,22 @@ def prim(graph: GraphAL) -> Dict[str, Tuple[str, str, int]]:
     reps = graph.nodes_rep
     mst = {}
 
+    edges_set = set()
+
     start_node = list(reps.keys())[0]
     candidates = PriorityQueueHeap([EdgeTuple(start_node, start_node, 0)])
 
-    count = 0
-    while count < vnum and not candidates.is_empty():
+    while len(edges_set) < vnum and not candidates.is_empty():
         start_node, end_node, weight = candidates.dequeue()
         if mst.get(end_node, None) is not None:
             continue
-        mst[end_node] = EdgeTuple(start_node, end_node, weight)
-        count += 1
-        for edge in graph.out_edge(end_node):
-            edge = edge.split(split_sign)
-            end_node = edge[1]
-            if edge[0] > edge[1] and not graph.is_directed:
-                edge[0], edge[1] = edge[1], edge[0]
-            et = EdgeTuple(edge[0], edge[1], int(edge[2]))
+        mst[end_node] = EdgeTuple(start_node, end_node, -1 * weight)
+        edges_set.add(end_node)
+        for edge_ in graph.out_edge(end_node):
+
+            edge = edge_.split(split_sign)
+            end_node = edge_.split(split_sign)[1]
+            et = EdgeTuple(edge[0], edge[1], int(edge[2])*(-1))
             if mst.get(end_node, None) is None:
                 candidates.enqueue(et)
 
