@@ -1,3 +1,6 @@
+from python_algorithm.Tree.Heap import Heap
+
+
 class PriorityQueueError(ValueError):
     pass
 
@@ -29,6 +32,14 @@ class PriorityQueue:
         if self.is_empty():
             raise PriorityQueueError("Empty PriorityQueue")
         return self._elems[0]
+
+
+class PriorityQueueHeap(Heap):
+
+    def __init__(self, enlist=None):
+        if enlist is None:
+            enlist = []
+        super().__init__(enlist)
 
 
 if __name__ == "__main__":

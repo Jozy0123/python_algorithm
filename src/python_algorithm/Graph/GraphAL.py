@@ -89,7 +89,7 @@ class GraphAL(GraphABC):
         if self._nodes_map.get(v, None) is not None:
             raise ValueError("Node exists!")
         self._matrix.append([])
-        self._vnum = self._vnum + 1
+        self._vnum += 1
         self._nodes_map[v] = self._vnum - 1
 
     def add_edge(self, v1, v2, weight=1):

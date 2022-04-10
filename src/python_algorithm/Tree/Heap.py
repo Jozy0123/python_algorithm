@@ -1,5 +1,5 @@
-from python_algorithm.Tree.PriorityQueue import PriorityQueueError
-
+class HeapError(ValueError):
+    pass
 
 class Heap:
 
@@ -15,7 +15,7 @@ class Heap:
 
     def peek(self):
         if self.is_empty():
-            raise PriorityQueueError("empty heap")
+            raise HeapError("empty heap")
         else:
             return self._elems[0]
 
@@ -48,10 +48,11 @@ class Heap:
 
     def dequeue(self):
         if self.is_empty():
-            raise PriorityQueueError("Empty PriorityQueue")
+            raise HeapError("Empty PriorityQueue")
         if len(self._elems) == 1:
+            elem = self._elems[0]
             self._elems = []
-            return self._elems[0]
+            return elem
         self._elems[0] = self._elems[-1]
         elem = self._elems.pop()
         self.siftdown(0, len(self._elems))

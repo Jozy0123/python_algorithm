@@ -1,10 +1,32 @@
 from python_algorithm.Graph.GraphAL import GraphAL
 from collections import namedtuple
+from typing import Tuple, List, Dict
+from random import shuffle
+from python_algorithm.Tree.PriorityQueue import PriorityQueueHeap
+from copy import deepcopy
 
-edge_tuple = namedtuple('edge_tuple', ['start_edge', 'end_edge', 'weight'])
+
+class EdgeTuple(namedtuple('EdgeTuple', ['start_edge', 'end_edge', 'weight'])):
+    def __gt__(self, other):
+        return self.weight > other.weight
+
+    def __ge__(self, other):
+        return self.weight >= other.weight
+
+    def __lt__(self, other):
+        return self.weight < other.weight
+
+    def __eq__(self, other):
+        return self.weight == other.weight
+
+    def __le__(self, other):
+        return self.weight <= other.weight
+
+    def __hash__(self):
+        return hash(self.start_edge + self.end_edge)
 
 
-def kruskal(graph: GraphAL):
+def kruskal(graph: GraphAL) -> List[Tuple[str, str, int]]:
     if graph.is_directed:
         split_sign = ' -> '
     else:
@@ -16,9 +38,9 @@ def kruskal(graph: GraphAL):
     for vi in graph.vertices():
         for edge in graph.out_edge(vi):
             edge = edge.split(split_sign)
-            if edge[0] > edge[1]:
+            if edge[0] > edge[1] and not graph.is_directed:
                 edge[0], edge[1] = edge[1], edge[0]
-            et = edge_tuple(edge[0], edge[1], int(edge[2]))
+            et = EdgeTuple(edge[0], edge[1], int(edge[2]))
             edges.add(et)
 
     edges = list(edges)
@@ -33,6 +55,37 @@ def kruskal(graph: GraphAL):
             for i in graph.vertices():
                 if reps[i] == orep:
                     reps[i] = rep
+    return mst
+
+
+def prim(graph: GraphAL) -> Dict[str, Tuple[str, str, int]]:
+    if graph.is_directed:
+        split_sign = ' -> '
+    else:
+        split_sign = ' <-> '
+    vnum = graph.vertex_num()
+    reps = graph.nodes_rep
+    mst = {}
+
+    start_node = list(reps.keys())[0]
+    candidates = PriorityQueueHeap([EdgeTuple(start_node, start_node, 0)])
+
+    count = 0
+    while count < vnum and not candidates.is_empty():
+        start_node, end_node, weight = candidates.dequeue()
+        if mst.get(end_node, None) is not None:
+            continue
+        mst[end_node] = EdgeTuple(start_node, end_node, weight)
+        count += 1
+        for edge in graph.out_edge(end_node):
+            edge = edge.split(split_sign)
+            end_node = edge[1]
+            if edge[0] > edge[1] and not graph.is_directed:
+                edge[0], edge[1] = edge[1], edge[0]
+            et = EdgeTuple(edge[0], edge[1], int(edge[2]))
+            if mst.get(end_node, None) is None:
+                candidates.enqueue(et)
+
     return mst
 
 
@@ -51,4 +104,6 @@ if __name__ == "__main__":
     graph.add_edge("d", "g", 20)
     graph.add_edge("e", "g", 8)
     graph.add_edge("f", "g", 8)
+    prim_graph = deepcopy(graph)
     print(kruskal(graph))
+    print(prim(prim_graph))
