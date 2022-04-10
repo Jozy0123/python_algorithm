@@ -1,9 +1,7 @@
 from python_algorithm.Graph.GraphAL import GraphAL
 from collections import namedtuple
 from typing import Tuple, List, Dict
-from random import shuffle
 from python_algorithm.Tree.PriorityQueue import PriorityQueueHeap
-from copy import deepcopy
 
 
 class EdgeTuple(namedtuple('EdgeTuple', ['start_edge', 'end_edge', 'weight'])):
@@ -104,6 +102,5 @@ if __name__ == "__main__":
     graph.add_edge("d", "g", 20)
     graph.add_edge("e", "g", 8)
     graph.add_edge("f", "g", 8)
-    prim_graph = deepcopy(graph)
     print(kruskal(graph))
-    print(prim(prim_graph))
+    print(prim(graph))

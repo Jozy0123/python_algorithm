@@ -1,6 +1,6 @@
 from python_algorithm.Graph.GraphABC import GraphABC
 from typing import List, Union, Dict, Optional, Iterator, Tuple, Any
-from copy import copy
+from copy import copy, deepcopy
 
 
 def out_edge(matrix_row: List[int],
@@ -57,7 +57,7 @@ class GraphAL(GraphABC):
 
     @property
     def nodes_rep(self) -> Dict[Any, int]:
-        return self._nodes_map
+        return deepcopy(self._nodes_map)
 
     def is_empty(self) -> bool:
         return self._vnum == 0
