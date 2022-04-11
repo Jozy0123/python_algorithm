@@ -5,9 +5,9 @@ class BinaryTreeList(BinTreeABC):
 
     def __init__(self, data, left=None, right=None):
         if left is not None:
-            assert isinstance(left, BinTreeList)
+            assert isinstance(left, BinaryTreeList)
         if right is not None:
-            assert isinstance(right, BinTreeList)
+            assert isinstance(right, BinaryTreeList)
         self.root = [data, left, right]
 
     def is_empty(self):
@@ -73,9 +73,9 @@ class BinaryTreeList(BinTreeABC):
 
 
 if __name__ == "__main__":
-    t1 = BinTreeList(2, BinTreeList(4), None)
-    t2 = BinTreeList(8, None, None)
-    t3 = BinTreeList(5, t1, t2)
+    t1 = BinaryTreeList(2, BinaryTreeList(4), None)
+    t2 = BinaryTreeList(8, None, None)
+    t3 = BinaryTreeList(5, t1, t2)
     print(t3)
     t3.traversal()
     t3.forall(lambda x: x**2)
